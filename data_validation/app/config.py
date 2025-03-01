@@ -13,3 +13,29 @@ def is_scheduler():
 
 def is_dev():
     return ENVIRONMENT == DEV_NAME
+
+
+CITIES_LIST = [
+    {"city": "New York", "country": "USA"},
+    {"city": "London", "country": "United Kingdom"},
+    {"city": "Tokyo", "country": "Japan"},
+    {"city": "Paris", "country": "France"},
+    {"city": "Sydney", "country": "Australia"},
+    {"city": "Berlin", "country": "Germany"},
+    {"city": "Toronto", "country": "Canada"},
+    {"city": "São Paulo", "country": "Brazil"},
+    {"city": "Dubai", "country": "United Arab Emirates"},
+    {"city": "Cape Town", "country": "South Africa"},
+    {"city": "Mumbai", "country": "India"},
+    {"city": "Seoul", "country": "South Korea"},
+    {"city": "Moscow", "country": "Russia"},
+    {"city": "Bangkok", "country": "Thailand"},
+    {"city": "Mexico City", "country": "Mexico"},
+    {"city": "Istanbul", "country": "Turkey"},
+    {"city": "Singapore", "country": "Singapore"},
+    {"city": "Buenos Aires", "country": "Argentina"},
+    {"city": "Rome", "country": "Italy"},
+    {"city": "Cairo", "country": "Egypt"},
+]
+
+CITIES_TUPLE = [(city["city"].lower(), city["country"].lower()) for city in CITIES_LIST]
