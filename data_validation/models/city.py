@@ -1,7 +1,9 @@
-from marshmallow import Schema, fields
+from marshmallow import fields
+
+from data_validation.models.validators import SchemaValidator
 
 
-class CountrySchema(Schema):
+class CountrySchema(SchemaValidator):
     name = fields.String(required=True)
     iso2_code = fields.String(required=True)
     iso3_code = fields.String(required=True)
@@ -11,7 +13,7 @@ class CountrySchema(Schema):
         return set(CountrySchema().fields.keys())
 
 
-class CitySchema(Schema):
+class CitySchema(SchemaValidator):
     name = fields.String(required=True)
     country = fields.Nested(CountrySchema, required=True)
     lat = fields.Float(required=True)

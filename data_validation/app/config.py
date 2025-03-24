@@ -1,5 +1,7 @@
 from os import environ
 
+from .enums import OpenMeteoApiUrls
+
 ENVIRONMENT = environ.get("ENVIRONMENT", "").upper()
 DEV_NAME = "DEV"
 
@@ -39,3 +41,19 @@ CITIES_LIST = [
 ]
 
 CITIES_TUPLE = [(city["city"].lower(), city["country"].lower()) for city in CITIES_LIST]
+
+OPEN_METEO_URLS = {
+    OpenMeteoApiUrls.AIR_QUALITY: "https://air-quality-api.open-meteo.com/v1/air-quality"
+}
+
+AIR_QUALITY_PARAMS = [
+    "pm10",
+    "pm2_5",
+    "ozone",
+    "carbon_dioxide",
+    "dust",
+    "european_aqi",
+    "european_aqi_pm2_5",
+    "european_aqi_pm10",
+    "european_aqi_ozone",
+]

@@ -2,3 +2,4 @@ celery[redis]
 marshmallow
 openmeteo-requests
 polars
+numpy

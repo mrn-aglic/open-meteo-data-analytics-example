@@ -1,5 +1,4 @@
 import polars as pl
-from marshmallow import ValidationError
 
 from data_validation.app.config import CITIES_TUPLE
 from data_validation.celeryapp import app
@@ -15,7 +14,7 @@ def get_valid_columns():
 
 def transform_dataframe(df: pl.DataFrame) -> pl.DataFrame:
     city_cols = [col for col in CitySchema.get_columns() if col != "country"]
-    country_cols = [col for col in CountrySchema.get_columns() if col != "name"]
+    country_cols = list(CountrySchema.get_columns())
 
     cols = city_cols + [
         pl.struct(country_cols).alias("country"),
@@ -23,13 +22,6 @@ def transform_dataframe(df: pl.DataFrame) -> pl.DataFrame:
 
     return df.select(cols)
     # .with_columns(pl.lit(1).alias("dummy_column")))
-
-
-def validate_cities(cities: list[dict]):
-    validation_result = CitySchema().validate(data=cities, many=True, partial=False)
-
-    if validation_result:
-        raise ValidationError(validation_result)
 
 
 @app.task
@@ -52,8 +44,7 @@ def load_cities():
             SELECT
                 {columns},
             FROM cities
-            WHERE LOWER(name) IN {tuple(city[0] for city in CITIES_TUPLE)} AND
-            LOWER(country) IN {tuple(city[1] for city in CITIES_TUPLE)}
+            WHERE LOWER(name) + LOWER(country) IN {tuple(city + country for city, country in CITIES_TUPLE)}
         """,
         table_name="cities",
     )
@@ -67,6 +58,6 @@ def load_cities():
 
     result = df.to_dicts()
 
-    validate_cities(result)
+    CitySchema().validate_dicts(result)
 
     return result
