@@ -39,6 +39,17 @@ services:
       - .env
     entrypoint: ['./entrypoint.sh', 'scheduler']
 
+  db:
+    image: clickhouse/clickhouse-server
+    container_name: celery-data-db
+    volumes:
+      - ./db-data:/var/lib/clickhouse
+      - ./ch_init:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    ports:
+      - "8123:8123"
+
 #  flower:
 #    build:
 #      context: ./

@@ -122,4 +122,4 @@ def get_weather_data(cities: list[dict]):
 
     logger.info("validation passed")
 
-    return flattened_data
+    return {"data": flattened_data, "table_name": "air_quality"}

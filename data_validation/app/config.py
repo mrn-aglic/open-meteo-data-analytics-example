@@ -1,3 +1,4 @@
+import os
 from os import environ
 
 from .enums import OpenMeteoApiUrls
@@ -57,3 +58,9 @@ AIR_QUALITY_PARAMS = [
     "european_aqi_pm10",
     "european_aqi_ozone",
 ]
+
+CLICKHOUSE_HOST = os.environ.get("CLICKHOUSE_HOST", "db")
+CLICKHOUSE_PORT = "8123"
+CLICKHOUSE_DB = os.environ["CLICKHOUSE_DB"]
+CLICKHOUSE_USER = os.environ["CLICKHOUSE_USER"]
+CLICKHOUSE_PASSWORD = os.environ["CLICKHOUSE_PASSWORD"]

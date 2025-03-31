@@ -3,3 +3,5 @@ marshmallow
 openmeteo-requests
 polars
 numpy
+clickhouse-connect
+pyarrow
