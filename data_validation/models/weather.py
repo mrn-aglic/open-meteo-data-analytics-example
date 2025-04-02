@@ -19,3 +19,7 @@ class AirQualitySchema(SchemaValidator):
     european_aqi_pm2_5 = fields.Float(required=True)
     european_aqi_pm10 = fields.Float(required=True)
     european_aqi_ozone = fields.Float(required=True)
+
+    @staticmethod
+    def get_columns():
+        return set(AirQualitySchema().fields.keys())
