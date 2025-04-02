@@ -3,7 +3,9 @@ from celery.utils.log import get_task_logger
 
 from data_validation.app import config
 from data_validation.celeryapp import app
-from data_validation.worker.tasks.database import optimise_table
+from data_validation.worker.pipelines import city_weather_pipeline
+
+# from data_validation.worker.tasks.database import optimise_table
 
 logger = get_task_logger(__name__)
 
@@ -18,10 +20,16 @@ def setup_periodic_tasks(sender, **kwargs):
     try:
         logger.info("SETUP PERIODIC TASK")
 
+        # sender.add_periodic_task(
+        #     schedule=crontab(minute="*/5"),
+        #     sig=optimise_table.s(),
+        #     name="optimise_table",
+        # )
+
         sender.add_periodic_task(
-            schedule=crontab(minute="*/5"),
-            sig=optimise_table.s(),
-            name="optimise_table",
+            schedule=crontab(minute="0"),
+            sig=city_weather_pipeline.s(),
+            name="city_weather_pipeline",
         )
 
     except Exception as e:

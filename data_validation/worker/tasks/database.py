@@ -13,11 +13,9 @@ from data_validation.celeryapp import app
 
 logger = get_task_logger(__name__)
 
-# ALTER TABLE air_quality MODIFY SETTING allow_experimental_replacing_merge_with_cleanup = 1;
-
 
 @app.task
-def optimise_table():
+def optimise_table(table_name: str):
     client = clickhouse_connect.get_client(
         host=CLICKHOUSE_HOST,
         port=CLICKHOUSE_PORT,
@@ -26,8 +24,8 @@ def optimise_table():
         password=CLICKHOUSE_PASSWORD,
     )
 
-    client.command("OPTIMIZE TABLE air_quality FINAL CLEANUP")
-    logger.info("table optimised:> air_quality")
+    client.command(f"OPTIMIZE TABLE {table_name} FINAL CLEANUP")
+    logger.info(f"table optimised:> {table_name}")
 
 
 @app.task

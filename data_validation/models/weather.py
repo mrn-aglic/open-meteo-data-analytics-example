@@ -3,7 +3,7 @@ from marshmallow import fields
 from data_validation.models.validators import SchemaValidator
 
 
-class WeatherSchema(SchemaValidator):
+class AirQualitySchema(SchemaValidator):
     date = fields.DateTime(required=True, format="%Y-%m-%dT%H:%M:%S%z")
     city_name = fields.String(required=True)
     country_iso2 = fields.String(required=True)

@@ -9,7 +9,7 @@ from openmeteo_sdk.Variable import Variable
 from data_validation.app.config import AIR_QUALITY_PARAMS, OPEN_METEO_URLS
 from data_validation.app.enums import OpenMeteoApiUrls
 from data_validation.celeryapp import app
-from data_validation.models.weather import WeatherSchema
+from data_validation.models.weather import AirQualitySchema
 
 logger = get_task_logger(__name__)
 
@@ -118,7 +118,7 @@ def get_weather_data(cities: list[dict]):
     data = process_response(response, cities)
 
     flattened_data = list(itertools.chain(*data.values()))
-    WeatherSchema().validate_dicts(data=flattened_data)
+    AirQualitySchema().validate_dicts(data=flattened_data)
 
     logger.info("validation passed")
 
