@@ -50,6 +50,56 @@ services:
     ports:
       - "8123:8123"
 
+  metadata:
+    image: postgres:17
+    container_name: celery-data-superset_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - superset-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  superset-init:
+    container_name: superset_init
+    build:
+      context: superset_service
+    image: apache-superset
+    command: ["/app/scripts/init.sh"]
+    env_file:
+      - .env
+    depends_on:
+      metadata:
+        condition: service_started
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+    user: "root"
+    volumes:
+      - ./superset_service/scripts:/app/scripts
+      - ./superset_service/superset_config.py:/app/superset_config.py
+      - ./superset_service/init_db_connections.py:/app/init_db_connections.py
+
+  superset:
+    image: apache-superset
+    container_name: celery-data-superset
+    command: ["/app/scripts/run_server.sh"]
+    env_file:
+      - .env
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./superset_service/scripts:/app/scripts
+      - ./superset_service/superset_config.py:/app/superset_config.py
+    ports:
+      - "8088:8088"
+
+volumes:
+  superset-data:
+
 #  flower:
 #    build:
 #      context: ./
