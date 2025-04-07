@@ -97,23 +97,23 @@ services:
     ports:
       - "8088:8088"
 
+  flower:
+    build:
+      context: ./
+      dockerfile: flower/Dockerfile
+    command: ['./entrypoint.sh', 'flower']
+    volumes:
+      - ./flower_data:/db
+      - .:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+      worker:
+        condition: service_started
+    env_file:
+      - .env
+    ports:
+      - '5555:5555'
+
 volumes:
   superset-data:
-
-#  flower:
-#    build:
-#      context: ./
-#      dockerfile: flower/Dockerfile
-#    command: ['./entrypoint.sh', 'flower']
-#    volumes:
-#      - ./flower_data:/db
-#      - .:/app
-#    depends_on:
-#      redis:
-#        condition: service_healthy
-#      worker:
-#        condition: service_started
-#    env_file:
-#      - .env
-#    ports:
-#      - '5555:5555'
