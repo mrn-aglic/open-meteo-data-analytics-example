@@ -41,8 +41,6 @@ CITIES_LIST = [
     {"city": "Cairo", "country": "Egypt"},
 ]
 
-print(f"CITIES_LIST: len(CITIES_LIST): {len(CITIES_LIST)}")
-
 CITIES_TUPLE = [(city["city"].lower(), city["country"].lower()) for city in CITIES_LIST]
 
 OPEN_METEO_URLS = {

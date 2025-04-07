@@ -33,19 +33,19 @@ FILTER_STATE_CACHE_CONFIG = {
     "CACHE_TYPE": "RedisCache",
     "CACHE_DEFAULT_TIMEOUT": 86400,
     "CACHE_KEY_PREFIX": "superset_filter_cache",
-    "CACHE_REDIS_URL": "redis://localhost:6379/2",
+    "CACHE_REDIS_URL": "redis://redis:6379/2",
 }
 
 EXPLORE_FORM_DATA_CACHE_CONFIG = {
     "CACHE_TYPE": "RedisCache",
     "CACHE_DEFAULT_TIMEOUT": 86400,
     "CACHE_KEY_PREFIX": "superset_explore_form_data_cache",
-    "CACHE_REDIS_URL": "redis://localhost:6379/3",
+    "CACHE_REDIS_URL": "redis://redis:6379/3",
 }
 
 DATA_CACHE_CONFIG = {
     "CACHE_TYPE": "RedisCache",
     "CACHE_DEFAULT_TIMEOUT": 86400,
     "CACHE_KEY_PREFIX": "superset_data_cache",
-    "CACHE_REDIS_URL": "redis://localhost:6379/4",
+    "CACHE_REDIS_URL": "redis://redis:6379/4",
 }
