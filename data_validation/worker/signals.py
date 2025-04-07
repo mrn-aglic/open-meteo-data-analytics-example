@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from celery.signals import task_postrun
 
 from data_validation.worker.pipelines import store_to_db_pipeline
@@ -29,6 +27,8 @@ def trigger_table_optimisation(retval, state, **_):
         print("Task not in success state")
         return
 
+    countdown = 120  # 2 minutes
+
     optimise_table.s(
         table_name="air_quality",
-    ).apply_async(countdown=timedelta(minutes=5))
+    ).apply_async(countdown=countdown)

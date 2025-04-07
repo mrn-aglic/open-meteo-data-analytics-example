@@ -108,8 +108,6 @@ def get_weather_data(cities: list[dict]):
         "longitude": [city["lng"] for city in cities],
     }
 
-    cities = [cities[0]]
-
     client = openmeteo_requests.Client()
     response = client.weather_api(
         url=OPEN_METEO_URLS[OpenMeteoApiUrls.AIR_QUALITY], params=params

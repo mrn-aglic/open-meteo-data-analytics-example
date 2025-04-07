@@ -19,7 +19,7 @@ def optimise_table(table_name: str):
     client = clickhouse_connect.get_client(
         host=CLICKHOUSE_HOST,
         port=CLICKHOUSE_PORT,
-        database="weather_data",
+        database=CLICKHOUSE_DB,
         username=CLICKHOUSE_USER,
         password=CLICKHOUSE_PASSWORD,
     )
@@ -30,16 +30,10 @@ def optimise_table(table_name: str):
 
 @app.task
 def store_data_to_db(data: list[dict], table_name: str):
-    logger.info(CLICKHOUSE_HOST)
-    logger.info(CLICKHOUSE_DB)
-    logger.info(CLICKHOUSE_PORT)
-    logger.info(CLICKHOUSE_USER)
-    logger.info(CLICKHOUSE_PASSWORD)
-
     client = clickhouse_connect.get_client(
         host=CLICKHOUSE_HOST,
         port=CLICKHOUSE_PORT,
-        database="weather_data",
+        database=CLICKHOUSE_DB,
         username=CLICKHOUSE_USER,
         password=CLICKHOUSE_PASSWORD,
     )
@@ -48,8 +42,6 @@ def store_data_to_db(data: list[dict], table_name: str):
     df = df.with_columns(pl.col("date").str.strptime(pl.Datetime).alias("date"))
 
     client.insert_arrow(table=table_name, arrow_table=df.to_arrow())
-
-    # client.command(f"OPTIMIZE {table_name} FINAL CLEANUP")
 
     count = client.query(f"SELECT COUNT(*) FROM {table_name} FINAL")
 

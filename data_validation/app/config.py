@@ -19,7 +19,7 @@ def is_dev():
 
 
 CITIES_LIST = [
-    {"city": "New York", "country": "USA"},
+    {"city": "New York", "country": "United States"},
     {"city": "London", "country": "United Kingdom"},
     {"city": "Tokyo", "country": "Japan"},
     {"city": "Paris", "country": "France"},
@@ -30,7 +30,7 @@ CITIES_LIST = [
     {"city": "Dubai", "country": "United Arab Emirates"},
     {"city": "Cape Town", "country": "South Africa"},
     {"city": "Mumbai", "country": "India"},
-    {"city": "Seoul", "country": "South Korea"},
+    {"city": "Seoul", "country": "Korea, South"},
     {"city": "Moscow", "country": "Russia"},
     {"city": "Bangkok", "country": "Thailand"},
     {"city": "Mexico City", "country": "Mexico"},
@@ -40,6 +40,8 @@ CITIES_LIST = [
     {"city": "Rome", "country": "Italy"},
     {"city": "Cairo", "country": "Egypt"},
 ]
+
+print(f"CITIES_LIST: len(CITIES_LIST): {len(CITIES_LIST)}")
 
 CITIES_TUPLE = [(city["city"].lower(), city["country"].lower()) for city in CITIES_LIST]
 

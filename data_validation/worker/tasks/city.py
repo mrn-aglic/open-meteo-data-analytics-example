@@ -21,7 +21,6 @@ def transform_dataframe(df: pl.DataFrame) -> pl.DataFrame:
     ]
 
     return df.select(cols)
-    # .with_columns(pl.lit(1).alias("dummy_column")))
 
 
 @app.task
