@@ -1,8 +1,29 @@
-# Celery Marquez lineage example
-This repo shows how we can send lineage information about Celery
-workflows to Marquez using the OpenLineage Python package.
+# A celery workflow from API to analytics
+This repo contains an example Celery workflow that:
+- requests air quality data from open-meteo API
+- transforms the data using Polars
+- validates the data using Marshmallow
+- stores the validated data to ClickHouse DB
+- integrates Apache Superset for dashboards
 
-Stories published related to this repo:
-1. [A fun experiment: using Marquez as a lineage tool for Celery](https://blog.det.life/a-fun-experiment-using-marquez-as-a-lineage-tool-for-celery-ec15a5bf952f)
-2. [Using Marquez as a lineage tool for Celery — adding the parent-run facet](https://medium.com/@MarinAgli1/using-marquez-as-a-lineage-tool-for-celery-adding-the-parent-run-facet-3f80fa0afe99)
-3. [Using Marquez as a lineage tool for Celery - connecting the tasks with datasets](https://medium.com/@MarinAgli1/using-marquez-as-a-lineage-tool-for-celery-connecting-the-tasks-with-datasets-56024f930c44)
+To run the project, first create the `.env` file. You can
+simply copy the `.env.example` file.
+
+You can build the images by running:
+```shell
+make build
+```
+To run the project:
+```shell
+make run
+```
+
+A medium blog post is published to accompany this repo:
+1. [Building a data pipeline from API to analytics dashboards.](https://medium.com/@MarinAgli1/building-a-data-pipeline-from-api-to-analytics-dashboards-8494df7e7aa7)
+
+
+Weather data is collected from the open-meteo API:
+https://open-meteo.com.
+
+City data is collected from simple maps: 
+https://simplemaps.com/data/world-cities.
